@@ -99,3 +99,46 @@ type CloudflareDomainLists struct {
 	Result  string `json:"result"`
 	Message string `json:"msg"`
 }
+
+func CreateRecord(ip string, domain string, name string, email string, token string) (string, error) {
+	v := url.Values{}
+	v.Set("tkn", token)
+	v.Set("email", email)
+	v.Set("z", domain)
+	v.Set("a", "rec_new")
+	v.Set("type", "A")
+	v.Set("name", name)
+	v.Set("ttl", "1")
+	v.Set("content", ip)
+	v.Set("service_mode", "0")
+	resp, err := http.PostForm(CF_API_URL, v)
+	if err != nil {
+		errorMessage := fmt.Sprintf("I was unable to post to CF: %s", err)
+		return "", errors.New(errorMessage)
+	}
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		errorMessage := fmt.Sprintf("I was unable to read CF Response: %s", err)
+		return "", errors.New(errorMessage)
+	}
+	var response CFNewResponse
+	json.Unmarshal(body, &response)
+	if response.Result != "success" {
+		errorMessage := fmt.Sprintf("I got an error from CF: %s", response.Message)
+		return "", errors.New(errorMessage)
+	}
+	return response.Response.Rec.Obj.RecID, nil
+}
+
+type CFNewResponse struct {
+	Result   string `json:"result"` //This is all we need, really
+	Message  string `json:"msg"`
+	Response struct {
+		Rec struct {
+			Obj struct {
+				RecID string `json:"rec_id"`
+			} `json:"obj"`
+		} `json:"rec"`
+	} `json:"response"`
+}
