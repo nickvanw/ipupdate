@@ -23,6 +23,7 @@ func SetAddress(ip string, domain string, name string, email string, id string, 
 	v.Set("name", name)
 	v.Set("content", ip)
 	v.Set("service_mode", "0")
+	v.Set("ttl", "1")
 	resp, err := http.PostForm(CF_API_URL, v)
 	if err != nil {
 		errorMessage := fmt.Sprintf("I was unable to post to CF: %s", err)
