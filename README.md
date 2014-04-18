@@ -6,12 +6,12 @@
 1. Install it! `go get github.com/nickvanw/ipupdate` 
 
 2. Create a configuration file. The example file is fairly clear, you'll need:
-	* An API Key and the e-mail address that goes along with it
-	* The name of your domain
-	* The subdomain you want to update
+	* A Cloudflare API Key and the e-mail address that goes along with it
+	* The name of your domain (example.com)
+	* The subdomain you want to update ('home' if you wanted to update home.example.com)
 	* Optional: The numerical ID of the record you wish to update
 	
-Save it somewhere and use the `-c` to point to it: `iptodate -c /path/to/file.conf`, or save it in `/etc/ipupdate.conf`. 
+Save it somewhere and use the `-c` to point to it: `iptodate -c /path/to/file.conf`, when you run the command. The defauly is /etc/ipupdate.conf, so if you put it there you don't need the -c flag.  
 
 There are four command line flags you need to know:
 
