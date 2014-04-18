@@ -1,0 +1,5 @@
+APIKey = "CLOUDFLARE API KEY"
+APIEmail = "test@example.com"
+Domain = "www.example.com"
+Name = "home"
+ID = "12345"
