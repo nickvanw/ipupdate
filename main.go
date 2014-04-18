@@ -4,7 +4,7 @@ import (
 	"flag"
 	"fmt"
 
-	ipupdate "github.com/nickvanw/iptodate/lib"
+	ipupdate "github.com/nickvanw/ipupdate/lib"
 
 	"github.com/BurntSushi/toml"
 )
